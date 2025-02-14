@@ -1,0 +1,344 @@
+/* styles.css  */
+:root {
+  --primary-color: #ff4d89;
+  --secondary-color: #ff85a2;
+  --accent-color: #ff2d70;
+  --background-color: #fff0f3;
+  --text-color: #2c1810;
+  --shadow-color: rgba(255, 77, 137, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px 0 rgba(255, 77, 137, 0.15);
+  --font-primary: 'Poppins', sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --border-radius: 20px;
+}
+
+/* Base Styles */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* body {
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, var(--background-color), #fff);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+} */
+
+/* Enhanced Glass Effect */
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--border-radius);
+}
+
+/* Navigation */
+.nav-menu {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 2rem;
+  z-index: 1000;
+  display: flex;
+  gap: 2rem;
+  transition: var(--transition-smooth);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--primary-color);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: var(--transition-smooth);
+  z-index: -1;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+  opacity: 0.1;
+  transform: translateY(0);
+}
+
+/* Header Section */
+.header-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-content {
+  text-align: center;
+  max-width: 800px;
+  width: 90%;
+  padding: 3rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.title-animation {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: titleGradient 6s ease infinite;
+}
+
+/* Heart Container */
+.heart-container {
+  margin: 2rem auto;
+  width: 120px;
+  height: 120px;
+  position: relative;
+}
+
+.heart-shape {
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color);
+  transform: rotate(45deg);
+  position: relative;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.heart-shape::before,
+.heart-shape::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart-shape::before {
+  left: -50%;
+}
+
+.heart-shape::after {
+  top: -50%;
+}
+
+/* Timer Section */
+.relationship-timer {
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.timer-item {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 15px;
+  min-width: clamp(90px, 15vw, 120px);
+  box-shadow: 0 10px 20px var(--shadow-color);
+  transition: var(--transition-smooth);
+}
+
+.timer-item:hover {
+  transform: translateY(-5px);
+}
+
+.timer-item span {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: bold;
+  color: var(--primary-color);
+  display: block;
+}
+
+/* Memory Game Section */
+.memory-game-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom, rgba(255, 77, 137, 0.05), rgba(255, 133, 162, 0.05));
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Music Player */
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 1rem;
+  width: 300px;
+  z-index: 100;
+}
+
+.music-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.music-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.music-btn:hover {
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+.progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.progress {
+  height: 100%;
+  background: var(--primary-color);
+  transition: width 0.2s linear;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Animations */
+@keyframes titleGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: rotate(45deg) scale(1); }
+  50% { transform: rotate(45deg) scale(1.1); }
+}
+
+/* Floating Hearts */
+.floating-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-menu {
+    bottom: 20px;
+    top: auto;
+    width: 90%;
+    padding: 0.8rem;
+  }
+
+  .nav-links {
+    gap: 0.5rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .timer-container {
+    gap: 1rem;
+  }
+
+  .music-player {
+    width: 250px;
+    bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    padding: 2rem 1rem;
+  }
+
+  .timer-item {
+    min-width: 80px;
+    padding: 1rem;
+  }
+
+  .game-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .music-player {
+    width: 200px;
+    right: 10px;
+    bottom: 90px;
+  }
+}
+
+

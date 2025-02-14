@@ -1,0 +1,175 @@
+/* timer.css */
+:root {
+    /* Enhanced color palette */
+    --primary-color: #ff2d70;
+    --secondary-color: #ff85a2;
+    --accent-color: #ff1493;
+    --background-color: #fff0f5;
+    --text-color: #2c1810;
+    --shadow-color: rgba(255, 45, 112, 0.2);
+    --glass-bg: rgba(255, 255, 255, 0.2);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+    --glass-shadow: 0 8px 32px 0 rgba(255, 45, 112, 0.2);
+}
+
+/* Enhanced Timer Section */
+.relationship-timer {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 3rem;
+    margin-top: 3rem;
+    box-shadow: 0 10px 30px rgba(255, 45, 112, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.timer-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.love-counter {
+    text-align: center;
+}
+
+.timer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.timer-item {
+    background: white;
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(255, 45, 112, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.timer-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(255, 45, 112, 0.2);
+}
+
+.timer-item span {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.timer-item p {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.timer-decoration {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    font-size: 2rem;
+    opacity: 0.2;
+    transform: rotate(-15deg);
+    transition: all 0.3s ease;
+}
+
+.timer-item:hover .timer-decoration {
+    opacity: 1;
+    transform: rotate(0deg) scale(1.2);
+}
+
+.anniversary-date {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    display: inline-block;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Animation for timer items */
+@keyframes countUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.timer-item {
+    animation: countUp 0.5s ease-out forwards;
+}
+
+.timer-item:nth-child(1) { animation-delay: 0.1s; }
+.timer-item:nth-child(2) { animation-delay: 0.2s; }
+.timer-item:nth-child(3) { animation-delay: 0.3s; }
+.timer-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+    .timer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .timer-item span {
+        font-size: 2.5rem;
+    }
+
+    .timer-title {
+        font-size: 2rem;
+    }
+
+    .relationship-timer {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .timer-item {
+        padding: 1.5rem 1rem;
+    }
+
+    .timer-item span {
+        font-size: 2rem;
+    }
+
+    .timer-title {
+        font-size: 1.8rem;
+    }
+
+    .anniversary-date {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+}

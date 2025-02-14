@@ -1,0 +1,321 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.locked {
+    overflow: hidden;
+    height: 100vh;
+    background: #ff6b95;
+}
+
+/* Puzzle Screen */
+.puzzle-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ff6b95, #ff4d6d);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px;
+    min-height: 100vh;
+    overflow: auto;
+}
+
+.puzzle-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header */
+.puzzle-header {
+    text-align: center;
+    color: white;
+}
+
+.puzzle-header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.puzzle-header p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    opacity: 0.9;
+}
+
+/* Stats Bar */
+.puzzle-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    color: white;
+}
+
+.progress-container {
+    flex: 1;
+    max-width: 300px;
+    margin-left: 20px;
+}
+
+.progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+/* Puzzle Board */
+.puzzle-board {
+    width: 90%;
+    max-width: 600px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+/* Puzzle Pieces */
+.puzzle-piece {
+    position: relative;
+    aspect-ratio: 1;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: grab;
+    transition: transform 0.2s ease;
+    height: 209px;
+    width: 121px;
+}
+.puzzle-piece img {
+    position: absolute;
+    width: 300%; /* กว้าง 3 เท่าของชิ้นส่วน */
+    height: 300%; /* สูง 3 เท่าของชิ้นส่วน */
+    object-fit: none; /* ไม่ปรับขนาดรูปภาพ */
+    transform-origin: 0 0;
+}
+
+
+
+.puzzle-piece img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+}
+.card-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center; /* จัดตำแหน่งรูปภาพให้อยู่ตรงกลางเสมอ */
+}
+.puzzle-piece.hover {
+    transform: scale(0.95);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* แก้ไขสไตล์สำหรับการลาก */
+.puzzle-piece.dragging {
+    opacity: 0.8;
+    transform: scale(1.05);
+    z-index: 1000;
+}
+
+/* แก้ไขสไตล์เมื่อวางถูกตำแหน่ง */
+.puzzle-piece.correct {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+@media (max-width: 768px) {
+    .puzzle-board {
+        width: 95%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .puzzle-board {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+.piece-number {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff4d6d;
+    padding: 2px 4px;
+    border-radius: 12px;
+    font-size: clamp(8px, 3vw, 12px);
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* Preview */
+.puzzle-preview {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: clamp(100px, 15vw, 200px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+}
+
+.puzzle-preview img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.preview-text {
+    color: white;
+    margin-top: 5px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Success Modal */
+.unlock-success {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.success-content {
+    background: white;
+    padding: clamp(20px, 4vw, 40px);
+    border-radius: 20px;
+    text-align: center;
+    max-width: 90%;
+    transform-origin: center;
+
+}
+
+.success-content h2 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: #ff4d6d;
+    margin-bottom: 1rem;
+}
+
+.continue-btn {
+    margin-top: 1.5rem;
+    padding: 12px 30px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.continue-btn:hover {
+    background: #ff6b95;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .puzzle-screen {
+        padding: 10px;
+    }
+    .puzzle-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .puzzle-header p {
+        font-size: 0.9rem;
+    }
+
+    .puzzle-stats {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .puzzle-board {
+        max-width: min(85vw, 350px);
+    }
+
+    /* ซ่อน preview บนมือถือ */
+    .puzzle-preview {
+        display: none;
+    }
+    .progress-container {
+        margin-left: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .puzzle-board {
+        padding: 8px;
+        gap: 5px;
+    }
+    
+    .piece-number {
+        padding: 2px 6px;
+        font-size: 10px;
+    }
+}
+
+/* Animation Enhancements */
+@keyframes pieceCorrect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.puzzle-piece.correct {
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+}
+
+.puzzle-piece.completed {
+    pointer-events: none;
+}
+
+
+.puzzle-piece.dragging {
+    z-index: 1000;
+    cursor: grabbing;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
