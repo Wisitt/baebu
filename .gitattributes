@@ -1,0 +1,19 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# CSS files
+*.css text eol=lf
+*.scss text eol=lf
+
+# JavaScript files
+*.js text eol=lf
+
+# HTML files
+*.html text eol=lf
+
+# Force images to be treated as binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.svg text
