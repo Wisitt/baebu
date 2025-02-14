@@ -105,8 +105,8 @@ body.locked {
     overflow: hidden;
     cursor: grab;
     transition: transform 0.2s ease;
-    height: 209px;
-    width: 121px;
+    height: 181px;
+    width: 105px;
 }
 .puzzle-piece img {
     position: absolute;

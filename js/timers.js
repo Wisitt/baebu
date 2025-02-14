@@ -2,16 +2,15 @@ window.APP = window.APP || {};
 
 window.APP.Timer = class {
     constructor(startDate) {
-        // แปลง startDate ให้อยู่ในรูปแบบที่ถูกต้อง
         try {
+            // แปลงวันที่เริ่มต้นให้เป็น UTC
             this.startDate = new Date(startDate);
-            // ตรวจสอบว่าวันที่ถูกต้อง
             if (isNaN(this.startDate.getTime())) {
                 throw new Error('Invalid date format');
             }
+            console.log('Start Date:', this.startDate.toISOString());
         } catch (error) {
             console.error('Error initializing timer:', error);
-            // ถ้าไม่สามารถแปลงวันที่ได้ ให้ใช้วันที่ปัจจุบัน
             this.startDate = new Date();
         }
 
@@ -25,57 +24,41 @@ window.APP.Timer = class {
 
     calculateTimeDifference() {
         const now = new Date();
-        let years = 0;
-        let months = 0;
-        let days = 0;
-        let hours = 0;
+        console.log('Current Date:', now.toISOString());
 
-        try {
-            // คำนวณความแตกต่างของปี
-            years = now.getFullYear() - this.startDate.getFullYear();
-            
-            // คำนวณความแตกต่างของเดือน
-            months = now.getMonth() - this.startDate.getMonth();
-            
-            // ปรับค่าปีและเดือนถ้าเดือนติดลบ
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-            
-            // คำนวณวัน
-            days = now.getDate() - this.startDate.getDate();
-            if (days < 0) {
-                months--;
-                if (months < 0) {
-                    years--;
-                    months += 12;
-                }
-                const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-                days += lastMonth.getDate();
-            }
-            
-            // คำนวณชั่วโมง
-            hours = now.getHours();
-            
-            // ตรวจสอบค่าติดลบ
-            years = Math.max(0, years);
-            months = Math.max(0, months);
-            days = Math.max(0, days);
-            hours = Math.max(0, hours);
+        // คำนวณความแตกต่างของเวลาในมิลลิวินาที
+        const diffTime = Math.abs(now - this.startDate);
+        
+        // คำนวณจำนวนวันทั้งหมด
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        // คำนวณปี
+        const years = Math.floor(diffDays / 365);
+        
+        // คำนวณเดือนที่เหลือ
+        const remainingDays = diffDays % 365;
+        const months = Math.floor(remainingDays / 30);
+        
+        // คำนวณวันที่เหลือ
+        const days = remainingDays % 30;
+        
+        // คำนวณชั่วโมง
+        const hours = now.getHours();
 
-        } catch (error) {
-            console.error('Error calculating time difference:', error);
-        }
-
-        return { years, months, days, hours };
+        console.log('Time Difference:', { years, months, days, hours });
+        
+        return {
+            years: Math.max(0, years),
+            months: Math.max(0, months),
+            days: Math.max(0, days),
+            hours: Math.max(0, hours)
+        };
     }
 
     updateDisplay() {
         const time = this.calculateTimeDifference();
         
         try {
-            // อัพเดตการแสดงผล
             Object.entries(this.elements).forEach(([key, element]) => {
                 if (element) {
                     element.textContent = String(time[key]).padStart(2, '0');
@@ -87,27 +70,19 @@ window.APP.Timer = class {
     }
 
     start() {
-        // อัพเดตทันทีเมื่อเริ่มต้น
         this.updateDisplay();
-        
-        // อัพเดตทุกชั่วโมง
-        setInterval(() => {
-            this.updateDisplay();
-        }, 1000 * 60 * 60); // อัพเดตทุกชั่วโมง
+        setInterval(() => this.updateDisplay(), 1000 * 60 * 60);
     }
 };
 
-// Initialize timer
+// Initialize timer with specific date
 document.addEventListener('DOMContentLoaded', () => {
-    // ตรวจสอบว่า CONFIG มีอยู่และมี startDate
-    if (window.APP.CONFIG && window.APP.CONFIG.startDate) {
-        try {
-            const timer = new window.APP.Timer(window.APP.CONFIG.startDate);
-            timer.start();
-        } catch (error) {
-            console.error('Error starting timer:', error);
-        }
-    } else {
-        console.error('Timer configuration is missing');
+    // กำหนดวันที่เริ่มต้นแบบ UTC
+    const startDate = '2024-08-01T00:00:00Z'; // แก้ไขวันที่ตามที่ต้องการ
+    try {
+        const timer = new window.APP.Timer(startDate);
+        timer.start();
+    } catch (error) {
+        console.error('Error starting timer:', error);
     }
 });
